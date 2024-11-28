@@ -3,25 +3,44 @@
 #include <time.h>
 #include "../include/input_module.h"
 
-// 全局变量
+// Global variables
 int tasks[MAX_TASKS];
 int compatibility[MAX_TASKS][MAX_TASKS];
 
-// 随机生成兼容性矩阵
+// Generate random tasks
+void generate_random_tasks(int *N, int *m, int max_time) {
+    srand(time(NULL)); // Initialize random seed
+
+    *N = rand() % (MAX_TASKS - 1) + 1; // Randomly generate the number of tasks (1 to MAX_TASKS)
+    *m = rand() % (MAX_MACHINES - 1) + 1; // Randomly generate the number of machines (1 to MAX_MACHINES)
+
+    for (int i = 0; i < *N; i++) {
+        tasks[i] = rand() % max_time + 1; // Processing time between 1 and max_time
+    }
+
+    // By default, all tasks are compatible
+    for (int i = 0; i < *N; i++) {
+        for (int j = 0; j < *N; j++) {
+            compatibility[i][j] = 0; // Fully compatible
+        }
+    }
+}
+
+// Generate random compatibility matrix
 void generate_random_compatibility_matrix(int N, int matrix[MAX_TASKS][MAX_TASKS]) {
-    srand(time(NULL)); // 初始化随机数种子
+    srand(time(NULL)); // Initialize random seed
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             if (i == j) {
-                matrix[i][j] = 0; // 自己与自己兼容
+                matrix[i][j] = 0; // A task is always compatible with itself
             } else {
-                matrix[i][j] = rand() % 2; // 随机生成 0 或 1
+                matrix[i][j] = rand() % 2; // Randomly generate 0 or 1
             }
         }
     }
 }
 
-// 输入函数，包含随机和手动两种输入方式
+// Input function
 void read_input(int *N, int *m) {
     printf("Please enter the number of tasks (N) and machines (m) (max %d and %d respectively): ", MAX_TASKS, MAX_MACHINES);
     scanf("%d %d", N, m);
@@ -71,10 +90,9 @@ void read_input(int *N, int *m) {
             }
         }
     } else {
-        // 如果用户选择不输入兼容性矩阵，默认所有任务之间兼容
         for (int i = 0; i < *N; i++) {
             for (int j = 0; j < *N; j++) {
-                compatibility[i][j] = 0; // 所有任务都相互兼容
+                compatibility[i][j] = 0; // Fully compatible
             }
         }
     }
