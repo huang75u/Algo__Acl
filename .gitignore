@@ -1,0 +1,6 @@
+main.exe
+makefile
+out
+.vscode/
+obj/
+src/main.exe
