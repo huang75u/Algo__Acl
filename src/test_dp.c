@@ -1,5 +1,6 @@
 #include "../include/input_module.h"
 #include "../include/dp_algorithm.h"
+#include <stdio.h>
 int main() {
     int N, m; // Number of tasks and machines
 

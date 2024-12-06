@@ -4,6 +4,7 @@
         "input_module.h": "c",
         "lpt_algorithm.h": "c",
         "dp_algorithm.h": "c",
-        "fptas_algorithm.h": "c"
+        "fptas_algorithm.h": "c",
+        "stdio.h": "c"
     }
 }
