@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdio.h>
 #include "../include/input_module.h"
 
 int main() {
@@ -21,7 +22,7 @@ int main() {
         return 1;
     }
 
-    // Example: Display tasks and the number of machines
+   
     printf("Number of tasks: %d, Number of machines: %d\n", N, m);
     printf("Task processing times: ");
     for (int i = 0; i < N; i++) {

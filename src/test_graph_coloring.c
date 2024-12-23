@@ -7,7 +7,7 @@ int main() {
 
     printf("Task graph coloring test\n");
 
-    // 使用 input_module 提供的 read_input 函数进行任务和不相容性矩阵的输入
+   
     read_input(&N, &m);
 
     printf("\nTasks:\n");
@@ -23,7 +23,7 @@ int main() {
         printf("\n");
     }
 
-    // 调用图染色算法
+   
     graph_coloring(tasks, N, compatibility);
 
     return 0;

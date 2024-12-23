@@ -22,7 +22,7 @@ int main() {
         return 1;
     }
 
-    // Perform dynamic programming scheduling
+    
     printf("\nStarting dynamic programming scheduling...\n");
     DP(tasks, N, m);
 

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "../include/input_module.h"
 #include "../include/fptas_algorithm.h"
 

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "../include/input_module.h"
 #include "../include/lpt_algorithm.h"
 
@@ -23,7 +24,7 @@ int main() {
         return 1;
     }
 
-    // Perform LPT scheduling
+    
     printf("\nStarting LPT scheduling...\n");
     LPT(tasks, N, m);
 
