@@ -19,6 +19,19 @@ static int subset_sum(int tasks[], int subset, int N) {
 }
 
 // FPTAS scheduling algorithm
+/*功能：实现近似调度算法（Fully Polynomial-Time Approximation Scheme，简称 FPTAS）。
+输入任务数组 tasks[]，总任务数 N，机器数 m，以及近似参数 epsilon。
+算法输出最优的近似最大负载（Cmax），保证近似误差不超过给定范围（由 epsilon 决定）。
+参数说明：
+tasks[]：表示任务数组，每个任务的负载为 tasks[i]。
+N：任务的总数。
+m：机器的总数。
+epsilon：近似误差范围，越小结果越接近最优，但计算复杂度增加。
+p_max 决定了任务的最大时间，影响算法的缩放因子和计算精度。
+作用：计算一个合理的最小 epsilon 值 epsilon_min。
+若 epsilon < epsilon_min，则近似误差可能过小，导致算法效率下降甚至无法执行。
+
+*/
 void FPTAS(int tasks[], int N, int m, double epsilon) {
     // Find maximum task time
     int p_max = 0;
@@ -30,6 +43,7 @@ void FPTAS(int tasks[], int N, int m, double epsilon) {
 
     // Calculate recommended minimum epsilon
     double epsilon_min = (double)N / p_max;
+    /*作用：计算任务时间缩放因子 K，用于将任务负载值缩小，减少动态规划表的规模*/
     printf("Recommended minimum epsilon: %.4f\n", epsilon_min);
     if (epsilon < epsilon_min) {
         printf("The provided approximation parameter (epsilon) is too little.\n");
@@ -39,6 +53,9 @@ void FPTAS(int tasks[], int N, int m, double epsilon) {
 
     // Calculate scaling factor
     double K = (epsilon * p_max) / N; 
+    /*作用：根据缩放因子 K，将每个任务的负载值除以 K，并取整。
+    保证：每个缩放后的负载值至少为 1，避免某些任务被舍入为 0。
+    结果：得到一个新的任务数组 scaled_tasks[]，负载值较小。*/
     printf("With epsilon = %.4f, the scaling factor K will be %.4f.\n", epsilon, K);
 
     // Scale task times
@@ -63,6 +80,10 @@ void FPTAS(int tasks[], int N, int m, double epsilon) {
     
     int dp_prev[total_subsets]; // Previous layer
     int dp_curr[total_subsets]; // Current layer
+    /*作用：
+    dp_prev：保存上一层机器的 DP 状态。
+    dp_curr：保存当前机器的 DP 状态。
+    大小：total_subsets = 2^N，表示任务的所有子集数。*/
 
     // Initialize dp_prev for one machine
     for (int S = 0; S < total_subsets; S++) {
@@ -84,6 +105,8 @@ void FPTAS(int tasks[], int N, int m, double epsilon) {
         
         for (int S = 0; S < total_subsets; S++) {
             dp_prev[S] = dp_curr[S];
+            /*dp_prev[T]：表示子集 T 分配到 j-1 台机器的最优负载。
+c           urrent_load：剩余任务由当前机器处理的总负载。*/
         }
     }
 
